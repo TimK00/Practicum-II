@@ -1,8 +1,8 @@
 # Practicum-II
 
-The layout of this rep is a work in progress
-Currently contains all code used for tracing data/testing
-As project continues to take shape folders may be renamed
+The layout of this repo is a work in progress.
+Currently contains all code used for tracing data/testing.
+As project continues to take shape folders may be renamed.
 
 ## General Approach:
 As of right now I think the general approach to fully automate this process is the following:
