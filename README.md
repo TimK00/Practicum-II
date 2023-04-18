@@ -14,9 +14,13 @@ As of right now I think the general approach to fully automate this process is t
 Right now I'm testing this approach using only the Master Common.dtsx file
 
 ## Python:
-Contains a notebook where I'm experimenting with stripping valuable data from the raw XML.  The main purposes are twofold:
-1. get "DTS:From" and "DTS:To" fields to capture complex behavior (seen in screenshots)
-2. get GUIDs to filter main query (Filtered Results.sql)
+I've completed this section.  I have four helper snippets to grab some useful things from the XML.
+1. Grabs fields "DTS:From" and "DTS:To" and converts it into a dataframe after filtering out several results
+2. Same as above with less filtering
+3. Grabs package names and GUIDs for future filtering
+4. Grabs live connections for packages at the "table" level
+
+These all together give me all the filtering I need for my large catalog/internal tables returned in the SQL queries
 
 ## SQL:
 There are three files here so far.
@@ -25,7 +29,7 @@ There are three files here so far.
 3. filtered results is the (mostly) completed table that needs some filtering from the results of Python parsing XML
 
 ## XML:
-Contains the raw XML file I'm using for testing/building
+Contains the twp raw XML files I'm using for testing/building
 
 ## Screenshots:
 Contains two jpg.  One of raw XML and one of the behavior the XML captures that is displayed with VS gui
