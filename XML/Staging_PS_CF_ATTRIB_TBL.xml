@@ -1,0 +1,762 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/12/2016 9:41:42 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="T5700145931"
+  DTS:CreatorName="UTHSCSA\RileyT"
+  DTS:DTSID="{6A2EA4F7-F419-4083-BB39-BA9673222ECF}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3002.113"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Staging_PS_CF_ATTRIB_TBL"
+  DTS:PackageType="5"
+  DTS:VersionBuild="60"
+  DTS:VersionGUID="{479AD09B-D40F-4438-A4E4-9F8F09153068}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{F90B28BC-A5AA-47F0-ACBB-72C0317A7223}"
+      DTS:ObjectName="Billing_Date">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">01-SEP-2016</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="3"
+      DTS:DTSID="{E36E0A2C-1BB0-4294-8B3C-C56FC00A9338}"
+      DTS:ObjectName="ProcessID">
+      <DTS:Property
+        DTS:DataType="3"
+        DTS:Name="ParameterValue">0</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2D82A6E3-2F38-4809-9575-C7A5452BBCFF}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;SELECT * FROM SYSADM.&quot;+ @[User::TableName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceQuery">
+      <DTS:VariableValue
+        DTS:DataType="8">SELECT * FROM SYSADM.PS_CF_ATTRIB_TBL</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5B24F2CF-E45A-43C5-A8CD-A34864179AD5}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="RIGHT( @[System::PackageName], Len(@[System::PackageName] ) -8)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="TableName">
+      <DTS:VariableValue
+        DTS:DataType="8">PS_CF_ATTRIB_TBL</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2F75D93D-9C5A-4D19-831C-D379E67640EF}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Truncate table [dbo].[&quot;+ @[User::TableName]+&quot;_Staging]&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="TruncateTable">
+      <DTS:VariableValue
+        DTS:DataType="8">Truncate table [dbo].[PS_CF_ATTRIB_TBL_Staging]</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{F70FE853-1305-49DA-BAC1-7AD370A9EAF3}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT Load PS_CF_ATTRIB_TBL Staging"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Name">"DFT Load "+ @[User::TableName]+" Staging"</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="[ORA SRC Table].[SqlCommand]">@[User::SourceQuery]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table"
+              componentClassID="Attunity.SSISOraSrc"
+              description="Microsoft Oracle Source Component by Attunity"
+              name="ORA SRC Table"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="The name of the table to be fetched."
+                  expressionType="Notify"
+                  name="TableName"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand">SELECT * FROM SYSADM.PS_CF_ATTRIB_TBL</property>
+                <property
+                  dataType="System.Int32"
+                  description="The number of rows fetched in a batch."
+                  expressionType="Notify"
+                  name="BatchSize">100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Number of pre-fetched rows."
+                  expressionType="Notify"
+                  name="PrefetchCount">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Determines the chunk size allocation for LOB columns"
+                  expressionType="Notify"
+                  name="LobChunkSize">32768</property>
+                <property
+                  dataType="System.Int32"
+                  description="The code page to use when code page information is unavailable from the data source."
+                  expressionType="Notify"
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Int32"
+                  description="The mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Connections[MSOraConnection]"
+                  connectionManagerID="{29839678-A47B-4B01-87D7-E75A095CE968}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[F92PRD_Attunity]"
+                  description="The Oracle runtime connection"
+                  name="MSOraConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output]"
+                  errorRowDisposition="FailComponent"
+                  name="Oracle Source Output"
+                  truncationRowDisposition="FailComponent">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[SETID]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[SETID]"
+                      length="5"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[SETID]"
+                      name="SETID" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CHARTFIELD_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CHARTFIELD_VALUE]"
+                      length="30"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CHARTFIELD_VALUE]"
+                      name="CHARTFIELD_VALUE" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[EFFDT]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[EFFDT]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[EFFDT]"
+                      name="EFFDT" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[FIELDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[FIELDNAME]"
+                      length="18"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[FIELDNAME]"
+                      name="FIELDNAME" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CF_ATTRIBUTE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CF_ATTRIBUTE]"
+                      length="15"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CF_ATTRIBUTE]"
+                      name="CF_ATTRIBUTE" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CF_ATTRIB_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CF_ATTRIB_VALUE]"
+                      length="20"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CF_ATTRIB_VALUE]"
+                      name="CF_ATTRIB_VALUE" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[SETID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="SETID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CHARTFIELD_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="CHARTFIELD_VALUE" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[EFFDT]"
+                      dataType="dbTimeStamp"
+                      name="EFFDT" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[FIELDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      name="FIELDNAME" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CF_ATTRIBUTE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="CF_ATTRIBUTE" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CF_ATTRIB_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="CF_ATTRIB_VALUE" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output]"
+                  isErrorOut="true"
+                  name="Oracle Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[SETID]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[SETID]"
+                      length="5"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[SETID]"
+                      name="SETID" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[CHARTFIELD_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CHARTFIELD_VALUE]"
+                      length="30"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[CHARTFIELD_VALUE]"
+                      name="CHARTFIELD_VALUE" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[EFFDT]"
+                      dataType="dbTimeStamp"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[EFFDT]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[EFFDT]"
+                      name="EFFDT" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[FIELDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[FIELDNAME]"
+                      length="18"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[FIELDNAME]"
+                      name="FIELDNAME" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[CF_ATTRIBUTE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CF_ATTRIBUTE]"
+                      length="15"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[CF_ATTRIBUTE]"
+                      name="CF_ATTRIBUTE" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[CF_ATTRIB_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].ExternalColumns[CF_ATTRIB_VALUE]"
+                      length="20"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[CF_ATTRIB_VALUE]"
+                      name="CF_ATTRIB_VALUE" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PS_CF_ATTRIB_TBL_Staging"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[PS_CF_ATTRIB_TBL_Staging]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">50000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Connections[OleDbConnection]"
+                  connectionManagerID="{E01B5F63-8B79-456D-8936-DCC19DC22630}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Staging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].Columns[SETID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="SETID"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[SETID]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[SETID]" />
+                    <inputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].Columns[CHARTFIELD_VALUE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="CHARTFIELD_VALUE"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CHARTFIELD_VALUE]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CHARTFIELD_VALUE]" />
+                    <inputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].Columns[EFFDT]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="EFFDT"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[EFFDT]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[EFFDT]" />
+                    <inputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].Columns[FIELDNAME]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="FIELDNAME"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[FIELDNAME]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[FIELDNAME]" />
+                    <inputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].Columns[CF_ATTRIBUTE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="CF_ATTRIBUTE"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CF_ATTRIBUTE]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CF_ATTRIBUTE]" />
+                    <inputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].Columns[CF_ATTRIB_VALUE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="CF_ATTRIB_VALUE"
+                      externalMetadataColumnId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CF_ATTRIB_VALUE]"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output].Columns[CF_ATTRIB_VALUE]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[SETID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="SETID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CHARTFIELD_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="CHARTFIELD_VALUE" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[EFFDT]"
+                      dataType="dbTimeStamp"
+                      name="EFFDT" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[FIELDNAME]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      name="FIELDNAME" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CF_ATTRIBUTE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="CF_ATTRIBUTE" />
+                    <externalMetadataColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input].ExternalColumns[CF_ATTRIB_VALUE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="CF_ATTRIB_VALUE" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT Load PS_CF_ATTRIB_TBL Staging.Paths[Oracle Source Output]"
+              endId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging.Inputs[OLE DB Destination Input]"
+              name="Oracle Source Output"
+              startId="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table.Outputs[Oracle Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Set Staging End Time"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D42A38ED-23AB-4BA7-B785-10645072474B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Set Staging End Time"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D9B72EE9-773A-49C7-82B0-E5B8EE3E5B16}"
+          SQLTask:SqlStatementSource="exec [UpdateProcessExecutionStagingEnd] ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::ProcessID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Set Staging Start Time"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1060CCA6-A016-4EA9-B4CC-9C5DF2E809EC}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Set Staging Start Time"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{D9B72EE9-773A-49C7-82B0-E5B8EE3E5B16}"
+          SQLTask:SqlStatementSource="exec [UpdateProcessExecutionStagingStart] ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::ProcessID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Truncate PS_CF_ATTRIB_TBL Staging"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{30F088B8-E641-4DE5-A259-0A46D37EECD8}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Truncate PS_CF_ATTRIB_TBL Staging"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:PropertyExpression
+        DTS:Name="Name">"SQL Truncate "+@[User::TableName]+" Staging"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{E01B5F63-8B79-456D-8936-DCC19DC22630}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::TruncateTable" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{69DC892B-2FC9-4A3B-BDE4-4BD1788C68D3}"
+      DTS:From="Package\SQL Truncate PS_CF_ATTRIB_TBL Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT Load PS_CF_ATTRIB_TBL Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{FF8E038C-BD88-4CA5-A6AC-8D08E72FB2CE}"
+      DTS:From="Package\SQL Set Staging Start Time"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL Truncate PS_CF_ATTRIB_TBL Staging" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1822229D-5A54-457E-8CC1-8ACEF0E8FA44}"
+      DTS:From="Package\DFT Load PS_CF_ATTRIB_TBL Staging"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL Set Staging End Time" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="268,42"
+          Id="Package\DFT Load PS_CF_ATTRIB_TBL Staging"
+          TopLeft="322,175" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\SQL Set Staging End Time"
+          TopLeft="358,276" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\SQL Set Staging Start Time"
+          TopLeft="366,4" />
+        <NodeLayout
+          Size="280,42"
+          Id="Package\SQL Truncate PS_CF_ATTRIB_TBL Staging"
+          TopLeft="315,73" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="455.5,115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="470.5,46">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-15.5,27"
+              Start="0,0"
+              End="-15.5,19.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,9.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.5"
+                    Point2="0,13.5"
+                    Point3="-4,13.5" />
+                  <mssgle:LineSegment
+                    End="-11.5,13.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-11.5,13.5"
+                    Point2="-15.5,13.5"
+                    Point3="-15.5,17.5" />
+                  <mssgle:LineSegment
+                    End="-15.5,19.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="458.25,217">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT Load PS_CF_ATTRIB_TBL Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="215,42"
+          Id="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging"
+          TopLeft="522.5,191.5" />
+        <NodeLayout
+          Size="153,42"
+          Id="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table"
+          TopLeft="547,69" />
+        <EdgeLayout
+          Id="Package\DFT Load PS_CF_ATTRIB_TBL Staging.Paths[Oracle Source Output]"
+          TopLeft="626.75,111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,80.5"
+              Start="0,0"
+              End="0,73">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,73" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Load PS_CF_ATTRIB_TBL Staging\ORA SRC Table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT Load PS_CF_ATTRIB_TBL Staging\PS_CF_ATTRIB_TBL_Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
