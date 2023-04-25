@@ -1,9 +1,5 @@
 # Practicum-II
 
-The layout of this repo is a work in progress.
-Currently contains all code used for tracing data/testing.
-As project continues to take shape folders may be renamed.
-
 ## General Approach:
 As of right now I think the general approach to fully automate this process is the following:
 1. Get names from query "Distinct package names"
@@ -12,6 +8,7 @@ As of right now I think the general approach to fully automate this process is t
 4. Use connections and GUIDs to filter main table
 
 Right now I'm testing this approach using only the Master Common.dtsx file
+Update: Testing is complete and successful.  Future builds will be generalized based on this approach.
 
 ## Python:
 I've completed this section.  I have four helper snippets to grab some useful things from the XML.
