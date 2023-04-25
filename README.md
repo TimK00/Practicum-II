@@ -12,7 +12,7 @@ Right now I'm testing this approach using only the Master Common.dtsx file
 Update: Testing is complete and successful.  Future builds will be generalized based on this approach.
 
 ## Python:
-I've completed this section.  I have four helper snippets to grab some useful things from the XML.
+There are several snippets here, but only two in production (the first of which requires more development)
 1. Grabs fields "DTS:From" and "DTS:To" and converts it into a dataframe after filtering out several results
 2. Grabs live connections for packages at the "table" level
 
