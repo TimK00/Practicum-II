@@ -34,4 +34,4 @@ Contains the twp raw XML files I'm using for testing/building
 2. Staging_PS_CF_ATTRIB_TBL.xml - is a sample of a table level package
 
 ## Screenshots:
-Contains two jpg.  One of raw XML and one of the behavior the XML captures that is displayed with VS gui
+Contains two jpg.  One of raw XML and one of the behavior the XML captures that is displayed with VS gui.  The logic captured here is the purpose behind the "LogicalAnd" snippet.  Future development will be able to capture this.
