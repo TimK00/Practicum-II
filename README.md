@@ -8,6 +8,7 @@ As of right now I think the general approach to fully automate this process is t
 4. Use connections and GUIDs to filter main table
 
 Right now I'm testing this approach using only the Master Common.dtsx file
+
 Update: Testing is complete and successful.  Future builds will be generalized based on this approach.
 
 ## Python:
